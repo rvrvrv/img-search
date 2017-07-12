@@ -1,6 +1,9 @@
 {
   "name": "img-search",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.11.1"
+  },
   "description": "Image Search Abstraction Layer Project for FreeCodeCamp",
   "main": "index.js",
   "scripts": {
