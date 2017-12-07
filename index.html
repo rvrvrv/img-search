@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Image Search Abstraction Layer</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container-fluid">
+		<h1>Image Search Abstraction Layer Project for FreeCodeCamp</h1>
+		<blockquote>
+			<p>User stories:</p>
+			<ul>
+				<li>I can get the image URLs, alt text, and page URLs for a set of images relating to a given search string.</li>
+				<li>I can paginate through the responses by adding the <i>?offset=2</i> parameter to the URL.</li>
+        <li>When I visit that shortened URL, it will redirect me to my original link.</li>
+        <li>I can get a list of the most recently submitted search strings.</li>
+			</ul>
+		</blockquote>
+    <h3>Example query usage:</h3>
+    <p>Search for images of kittens</p>
+		<code>https://img-search-rv.herokuapp.com/kittens</code>
+		<br>
+    <h3>Example query output:</h3>
+    <code>
+      [<br>
+      &nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"url": "https://i.guim.co.uk/img/media/9972929911063f90df9d79804558dd91a168cef5/0_0_4800_4518/master/4800.jpg?w=300&q=55&auto=format&usm=12&fit=max&s=39a81b34c64692c204b43dc88d922d94",<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;"snippet": "Pounce! Kittens caught mid-leap – in pictures | Life and style ...",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSw1jQ03kdU08UlkAKxAuHzkXbANFjmlssHq7koOrgBM0Z5tvAhWtYKVw",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"context": "https://www.theguardian.com/lifeandstyle/gallery/2016/nov/18/pounce-cats-caught-mid-leap-in-pictures"<br>
+      &nbsp;&nbsp;},<br>
+      &nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"url": "https://i.ytimg.com/vi/oxrWL0mUCbc/maxresdefault.jpg",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"snippet": "Cute Kittens Doing Funny Things - Cutest Abyssian Kittens ...",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCaVLcG7bIOyeSlfcLRMbevgkKxmGQqzLRTWWZeDSZwFLRx-Rh9FC58cPA",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"context": "https://www.youtube.com/watch?v=oxrWL0mUCbc"<br>
+      &nbsp;&nbsp;},<br>
+      &nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"url": "https://metrouk2.files.wordpress.com/2017/07/187144066.jpg?w=748&h=498&crop=1",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"snippet": "23 cute kittens to get you through a tough week | Metro News",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ26kdTbntoUcXJtxBCuh6nWMw0SHHxUM7pLxXknYshniByu6sDcNZuGaE",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"context": "http://metro.co.uk/2017/07/10/23-cute-kittens-to-get-you-through-a-tough-week-6760550/"<br>
+      &nbsp;&nbsp;},<br>
+      ...]
+    </code>
+    <h3>Example query usage:</h3>
+    <p>View the most recent searches</p>
+		<code>https://img-search-rv.herokuapp.com/api/recent</code>
+		<br>
+    <h3>Example query output:</h3>
+    <code>
+      [<br>
+      &nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"term": "kittens",<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;"when": "2017/12/07 13:14:21"<br>
+      &nbsp;&nbsp;},<br>
+      &nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"term": "puppies",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"when": "2017/12/07 14:02:13"<br>
+      &nbsp;&nbsp;},<br>
+      &nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"term": "computers",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"when": "2017/12/06 07:14:21"<br>
+      &nbsp;&nbsp;},<br>
+      ...]
+		</code>
+	</div>
+</body>
+
+</html>
