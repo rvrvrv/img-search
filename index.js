@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 const mongoose = require('mongoose'); // DB ops
 const imageSearch = require('node-google-image-search'); // Google Search API
+const moment = require('moment'); // Moment.js to format date/time
 const path = require('path');
 
 const indexPage = path.join(`${__dirname}/index.html`);
@@ -30,19 +31,22 @@ app.get('/favicon.ico', (req, res) => {
 app.get('/', (req, res) => res.sendFile(indexPage));
 app.get('/index.html', (req, res) => res.sendFile(indexPage)); // Disallow index.html as searchTerm param
 
+// Route to ignore 'robots.txt' requests
+app.get('/robots.txt', (req, res) => res.send('Requests to robots.txt are ignored.'));
+
 // Route for image search
 app.get('/:searchTerm', (req, res) => {
-  const searchTerm = req.params.searchTerm; // Get user's search term
-  // Get offset value, which represents page number. Defaults to 0
-  const offset = (req.query.offset - 1) * 10 || 0;
-  // Get date and time of search
-  const d = new Date();
-  const searchTime = `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+  // Store search term and time
+  const searchTerm = req.params.searchTerm;
+  const searchTime = moment().format('YYYY-MM-DD hh:mm:ss A');
   // Save search term and time in database
   const newSearch = new SearchEntry({
     term: searchTerm,
     when: searchTime
   });
+  // Store offset value, which represents the page number
+  const offset = (req.query.offset - 1) * 10 || 0;
+  // Perform the search
   newSearch.save().then(() => {
     const filteredResults = []; // New array to display filtered results
     // Run Google Image Search API
