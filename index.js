@@ -1,13 +1,11 @@
 require('dotenv').config();
 const express = require('express');
-
 const app = express();
 const port = process.env.PORT || 8080;
 const mongoose = require('mongoose'); // DB ops
 const imageSearch = require('node-google-image-search'); // Google Search API
 const moment = require('moment'); // Moment.js to format date/time
 const path = require('path');
-
 const indexPage = path.join(`${__dirname}/index.html`);
 
 // Connect to DB
@@ -48,13 +46,10 @@ app.get('/:searchTerm', (req, res) => {
   const offset = (req.query.offset - 1) * 10 || 0;
   // Perform the search
   newSearch.save().then(() => {
-    const filteredResults = []; // New array to display filtered results
-    // Run Google Image Search API
-    imageSearch(searchTerm, displayResults, offset, 10);
-
-    // Filter and display results
-    function displayResults(results) {
-      // Extract desired fields into filteredResults
+    // Search via Google Image Search API
+    imageSearch(searchTerm, (results) => {
+      const filteredResults = [];
+      // Store desired results fields in filteredResults
       results.forEach((obj) => {
         filteredResults.push({
           url: obj.link,
@@ -63,9 +58,9 @@ app.get('/:searchTerm', (req, res) => {
           context: obj.image.contextLink
         });
       });
-      // Display results to user
-      res.send(filteredResults);
-    }
+      // Send results to user
+      res.json(filteredResults);
+    }, offset, 10);
   });
 });
 
@@ -75,7 +70,7 @@ app.get('/api/recent', (req, res) => {
   SearchEntry.find({}, '-_id term when').sort('-when').limit(10).exec((err, results) => {
     if (err) console.error(err);
     // Display results to user
-    return res.send(results);
+    return res.json(results);
   });
 });
 
