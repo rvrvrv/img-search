@@ -9,7 +9,7 @@ const path = require('path');
 const indexPage = path.join(`${__dirname}/index.html`);
 
 // Connect to DB
-mongoose.connect(process.env.DB);
+mongoose.connect(process.env.DB, { useMongoClient: true });
 
 // Search Schema
 const SearchSchema = mongoose.Schema({
@@ -27,10 +27,13 @@ app.get('/favicon.ico', (req, res) => {
 
 // Landing page
 app.get('/', (req, res) => res.sendFile(indexPage));
-app.get('/index.html', (req, res) => res.sendFile(indexPage)); // Disallow index.html as searchTerm param
+app.get('/index.html', (req, res) => res.sendFile(indexPage));
 
 // Route to ignore 'robots.txt' requests
 app.get('/robots.txt', (req, res) => res.send('Requests to robots.txt are ignored.'));
+
+// Route to ignore 'wp-login.php' requests
+app.get('/wp-login.php', (req, res) => res.send('Requests to wp-login.php are ignored.'));
 
 // Route for image search
 app.get('/:searchTerm', (req, res) => {
