@@ -7,6 +7,7 @@ const imageSearch = require('node-google-image-search'); // Google Search API
 const moment = require('moment'); // Moment.js to format date/time
 const path = require('path');
 const indexPage = path.join(`${__dirname}/index.html`);
+const invalidTerms = ['favicon.ico', 'robots.txt', 'sitemap.xml', 'wp-login.php'];
 
 // Connect to DB
 mongoose.connect(process.env.DB, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -20,33 +21,27 @@ const SearchSchema = mongoose.Schema({
 // Search Model
 const SearchEntry = mongoose.model('searchEntry', SearchSchema);
 
-// Ignore favicon requests
-app.get('/favicon.ico', (req, res) => {
-  res.sendStatus(204);
-});
-
 // Landing page
 app.get('/', (req, res) => res.sendFile(indexPage));
 app.get('/index.html', (req, res) => res.sendFile(indexPage));
 
-// Route to ignore 'robots.txt' requests
-app.get('/robots.txt', (req, res) => res.send('Requests to robots.txt are ignored.'));
-
-// Route to ignore 'wp-login.php' requests
-app.get('/wp-login.php', (req, res) => res.send('Requests to wp-login.php are ignored.'));
-
 // Route for image search
 app.get('/:searchTerm', (req, res) => {
-  // Store search term and time
   const searchTerm = req.params.searchTerm;
-  const searchTime = moment().format('YYYY-MM-DD hh:mm:ss A');
+  // Ignore web crawler requests
+  if (invalidTerms.some(t => t === searchTerm)) {
+    return res.send(`Requests to ${searchTerm} are ignored`);
+  }
+
   // Save search term and time in database
   const newSearch = new SearchEntry({
     term: searchTerm,
-    when: searchTime
+    when: moment().format('YYYY-MM-DD hh:mm:ss A')
   });
+
   // Store offset value, which represents the page number
   const offset = (req.query.offset - 1) * 10 || 0;
+
   // Perform the search
   newSearch.save().then(() => {
     // Search via Google Image Search API
