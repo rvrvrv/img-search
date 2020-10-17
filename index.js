@@ -9,7 +9,7 @@ const path = require('path');
 const indexPage = path.join(`${__dirname}/index.html`);
 
 // Connect to DB
-mongoose.connect(process.env.DB, { useMongoClient: true });
+mongoose.connect(process.env.DB, { useUnifiedTopology: true, useNewUrlParser: true });
 
 // Search Schema
 const SearchSchema = mongoose.Schema({
