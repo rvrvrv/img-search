@@ -11,7 +11,7 @@ Image Search Abstraction Layer Project for FreeCodeCamp
 
 Search for images of kittens
 ```text
-https://img-search-rv.herokuapp.com/kittens
+https://img-search-rv.onrender.com/kittens
 ```
 
 ## Example query output:
@@ -36,13 +36,15 @@ https://img-search-rv.herokuapp.com/kittens
     "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ26kdTbntoUcXJtxBCuh6nWMw0SHHxUM7pLxXknYshniByu6sDcNZuGaE",
     "context": "http://metro.co.uk/2017/07/10/23-cute-kittens-to-get-you-through-a-tough-week-6760550/"
     },
-...]
+    ...
+  }
+]
 ```
 ## Example query usage:
 
 View the most recent searches
 ```text
-https://img-search-rv.herokuapp.com/api/recent
+https://img-search-rv.onrender.com/api/recent
 ```
 
 ## Example query output:
@@ -61,5 +63,6 @@ https://img-search-rv.herokuapp.com/api/recent
   "term": "computers",
   "when": "2017-11-29 05:33:05 PM"
   },
-...]
+  ...
+]
 ```
