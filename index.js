@@ -7,7 +7,7 @@ const imageSearch = require('./node-google-image-search'); // Google Search API
 const moment = require('moment'); // Moment.js to format date/time
 const path = require('path');
 const indexPage = path.join(`${__dirname}/index.html`);
-const invalidTerms = ['favicon.ico', 'robots.txt', 'sitemap.xml', 'wp-login.php'];
+const invalidTerms = /\.\w{3}/
 
 // Connect to DB
 mongoose.connect(process.env.DB, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -29,7 +29,7 @@ app.get('/index.html', (req, res) => res.sendFile(indexPage));
 app.get('/:searchTerm', (req, res) => {
   const searchTerm = req.params.searchTerm;
   // Ignore web crawler requests
-  if (invalidTerms.some(t => t === searchTerm)) {
+  if (invalidTerms.test(searchTerm)) {
     return res.send(`Requests to ${searchTerm} are ignored`);
   }
 
