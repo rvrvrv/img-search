@@ -1,9 +1,6 @@
 {
   "name": "img-search",
-  "version": "1.0.3",
-  "engines": {
-    "node": "6.11.1"
-  },
+  "version": "1.0.4",
   "description": "Image Search Abstraction Layer Project for FreeCodeCamp",
   "main": "index.js",
   "scripts": {
@@ -17,7 +14,6 @@
     "express": "^4.14.1",
     "moment": "^2.19.3",
     "mongoose": "^5.7.5",
-    "node-google-image-search": "^1.0.3",
     "path": "^0.12.7"
   }
 }
